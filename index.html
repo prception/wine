@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Hero Section</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-toggle" id="navbarToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="navbar-logo">
+           <img src="assets/images/logo/logo.png" alt="WINE Logo" width="50" height="50">
+        </div>
+        
+        <button class="navbar-btn">Reserve Now</button>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Scroll Background Transitions -->
+    <section class="hero-section">
+        <div class="hero-bg-container">
+            <div class="hero-bg hero-bg-1 active" style="background-image: url('assets/images/background/first-bg.png');"></div>
+            <div class="hero-bg hero-bg-2" style="background-image: url('assets/images/background/black-bg.png');"></div>
+        </div>
+        
+        <!-- Right Bottom Corner Background Images -->
+        <div class="right-bottom-container">
+            <div class="right-bottom-img right-bottom-1 active" style="background-image: url('assets/images/background/bg-right-1.png');"></div>
+            <div class="right-bottom-img right-bottom-2" style="background-image: url('assets/images/background/bg-right-2.png');"></div>
+        </div>
+        
+        <!-- Bottle Images -->
+        <div class="bottle-container">
+            <!-- Can Bottles - for 1st background -->
+            <img src="assets/images/bottle/red-white-can.png" alt="Can Bottle Top" class="bottle bottle-can-top">
+            <img src="assets/images/bottle/green-gold-can.png" alt="Can Bottle Bottom" class="bottle bottle-can-bottom">
+            
+            <!-- Gold-Black Bottles - for 2nd background -->
+            <img src="assets/images/bottle/black-gold-1.png" alt="Gold Black Wine Bottle Top" class="bottle bottle-gold-top">
+            <img src="assets/images/bottle/blackgold-2.png" alt="Gold Black Wine Bottle Bottom" class="bottle bottle-gold-bottom">
+        </div>
+    </section>
+
+    <!-- Bottle on Center -->
+    <section class="bottle-center-section">
+        <div class="noble-brew-bg">NOBLE BREW</div>
+        <div id="can-3d-container" class="bottle-center-3d"></div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r126/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="assets/js/bottle.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+    transition: background 0.3s ease;
+}
+
+.navbar-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.navbar-toggle span {
+    width: 25px;
+    height: 2px;
+    background: #d4af37;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.navbar-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar-logo h2 {
+    color: #d4af37;
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-btn {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #e6c35c, #d4af37);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.4s ease;
+    z-index: 999;
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-menu ul li {
+    margin: 30px 0;
+}
+
+.mobile-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu ul li a:hover {
+    color: #d4af37;
+}
+
+/* Hero Section */
+.hero-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+    padding-top: 80px; /* Account for navbar height */
+}
+
+.hero-section.scroll-out {
+    transform: translateY(-100%);
+}
+
+/* Bottle Container */
+.bottle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Base Bottle Styles */
+.bottle {
+    position: absolute;
+    right: 10%;
+    max-height: 70vh;
+    width: auto;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+}
+
+/* Red Bottle - Drops from top on 1st background */
+.bottle-red {
+    top: -100%;
+    right: 25%;
+    transform: scale(0.5) rotateY(0deg) rotate(-15deg);
+    opacity: 0;
+    
+}
+
+.bottle-red.active {
+    top: 15%;
+    right: 15%;
+    transform: scale(1.2) rotateY(0deg) rotate(5deg);
+    opacity: 1;
+}
+
+.bottle-red.exit {
+    top: 15%;
+    right: 15%;
+    transform: scale(1.2) rotateY(90deg) rotate(5deg);
+    opacity: 0;
+}
+
+/* Green Bottle - Rotates and transforms on 2nd background */
+.bottle-green {
+    top: 15%;
+    right: 15%;
+    transform: rotateY(-90deg) rotate(5deg) scale(1.2);
+    opacity: 0;
+}
+
+.bottle-green.active {
+    top: 15%;
+    right: 15%;
+    transform: rotateY(0deg) rotate(0deg) scale(1.2);
+    opacity: 1;
+}
+
+/* Can Bottles - Two bottles for 1st background */
+.bottle-can-top {
+    top: -100%;
+    right: 20%;
+}
+
+.bottle-can-top.active {
+    top: 10%;
+    right: 30%;
+    opacity: 1;
+}
+
+.bottle-can-top.exit {
+    top: -100%;
+    right: 20%;
+    opacity: 0;
+}
+
+.bottle-can-bottom {
+    bottom: -100%;
+    right: 20%;
+}
+
+.bottle-can-bottom.active {
+    bottom: 10%;
+    right: 16%;
+    opacity: 1;
+}
+
+.bottle-can-bottom.exit {
+    bottom: -100%;
+    right: 20%;
+    opacity: 0;
+}
+
+/* 3D Golden Can */
+.bottle-3d-can {
+    top: 50%;
+    right: 20%;
+    width: 300px;
+    height: 500px;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 1s ease-in-out, top 1s ease-in-out;
+    pointer-events: auto;
+}
+
+.bottle-3d-can.active {
+    opacity: 1;
+}
+
+.bottle-3d-can.exit {
+    opacity: 0;
+    top: -100%;
+}
+
+/* Gold-Black Bottles - Two bottles for 2nd background */
+.bottle-gold-top {
+    top: -100%;
+    right: 20%;
+}
+
+.bottle-gold-top.active {
+    top: 10%;
+    right: 30%;
+    opacity: 1;
+}
+
+.bottle-gold-bottom {
+    bottom: -100%;
+    right: 20%;
+}
+
+.bottle-gold-bottom.active {
+    bottom: 10%;
+    right: 16%;
+    opacity: 1;
+}
+
+.bottle-gold-top.exit {
+    top: -100%;
+    right: 20%;
+    opacity: 0;
+}
+
+.bottle-gold-bottom.exit {
+    bottom: -100%;
+    right: 20%;
+    opacity: 0;
+}
+
+.hero-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
+}
+
+.hero-bg.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Right Bottom Corner Background Images */
+.right-bottom-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.right-bottom-img {
+    position: absolute;
+    bottom: -2%;
+    right: -10%;
+    width: 70%;
+    height: 70%;
+    background-size: contain;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 2;
+}
+
+.right-bottom-img.active {
+    opacity: .5;
+    z-index: 3;
+}
+
+/* Dark overlay for better text readability */
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    font-weight: 300;
+}
+
+.hero-cta {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #e6c35c, #d4af37);
+}
+
+/* Indicators */
+.hero-indicators {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 15px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.indicator.active {
+    background: #d4af37;
+    transform: scale(1.2);
+    border-color: #fff;
+}
+
+.indicator:hover {
+    background: #d4af37;
+}
+
+/* Scroll Hint */
+.scroll-hint {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    text-align: center;
+    opacity: 0.8;
+    animation: fadeInUp 1s ease-in-out 1s both;
+}
+
+.scroll-hint span {
+    display: block;
+    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    border-right: 2px solid #d4af37;
+    border-bottom: 2px solid #d4af37;
+    transform: rotate(45deg);
+    animation: bounce 2s infinite;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 0.8;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: rotate(45deg) translateY(0);
+    }
+    40% {
+        transform: rotate(45deg) translateY(-10px);
+    }
+    60% {
+        transform: rotate(45deg) translateY(-5px);
+    }
+}
+
+/* Bottle Center Section */
+.bottle-center-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0909;
+    position: relative;
+    z-index: 6;
+    overflow: hidden;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    opacity: 0.95;
+    transform: translateY(12px) scale(0.99);
+}
+
+.bottle-center-section.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.noble-brew-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12vw;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: #1a1410;
+    opacity: 0.7;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    text-transform: uppercase;
+}
+
+.bottle-center-3d {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    max-height: 75vh;
+    z-index: 1;
+    opacity: 0;
+}
+
+/* Content Section */
+.content-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0a0909;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+    padding-top: 100vh; /* Push content below the fixed hero */
+}
+
+.content-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #d4af37;
+}
+
+.content-section p {
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero-cta {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
