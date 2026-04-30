@@ -264,6 +264,73 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // GSAP ScrollTrigger timeline reference
+    let ingredientsST = null;
+    
+    function initIngredientsScroll() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+        if (ingredientsST) return;
+        
+        gsap.registerPlugin(ScrollTrigger);
+        
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: bottleCenterSection,
+                start: 'top top',
+                end: '+=140%',
+                pin: true,
+                scrub: 0.8,
+                anticipatePin: 1
+            }
+        });
+        
+        // Fade out background text
+        tl.to('.noble-brew-bg', {
+            opacity: 0,
+            duration: 0.4,
+            ease: 'none'
+        }, 0);
+        
+        // Move 3D can wrapper to the left
+        tl.to('.bottle-center-3d-wrapper', {
+            x: '-22vw',
+            duration: 1,
+            ease: 'none'
+        }, 0);
+        
+        // Background shifts to white
+        tl.to(bottleCenterSection, {
+            backgroundColor: '#ffffff',
+            duration: 1,
+            ease: 'none'
+        }, 0.15);
+        
+        // Product info slides in from left
+        tl.fromTo('.product-info-left',
+            { opacity: 0, x: -50 },
+            { opacity: 1, x: 0, duration: 0.8, ease: 'none' },
+            0.25
+        );
+        
+        // Spec card slides in from right
+        tl.fromTo('.product-specs-right',
+            { opacity: 0, x: 50 },
+            { opacity: 1, x: 0, duration: 0.8, ease: 'none' },
+            0.35
+        );
+        
+        // Staggered spec rows reveal
+        tl.from('.spec-row', {
+            y: 15,
+            opacity: 0,
+            stagger: 0.06,
+            duration: 0.5,
+            ease: 'none'
+        }, 0.5);
+        
+        ingredientsST = tl.scrollTrigger;
+    }
+    
     // Function to unlock hero section
     function unlockHero() {
         heroLocked = false;
@@ -273,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'auto';
             bottleCenterSection.classList.add('revealed');
             animateBottleCenter();
+            initIngredientsScroll();
         }, 800);
     }
     
@@ -300,6 +368,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (can3dContainer) {
             can3dContainer.style.opacity = '';
             can3dContainer.style.transform = '';
+        }
+        // Kill GSAP ScrollTrigger and reset section styles
+        if (ingredientsST) {
+            ingredientsST.kill();
+            ingredientsST = null;
+        }
+        if (bottleCenterSection) {
+            bottleCenterSection.style.backgroundColor = '';
+            if (typeof gsap !== 'undefined') {
+                gsap.set('.bottle-center-3d-wrapper', { x: 0, clearProps: 'transform' });
+                gsap.set('.product-info-left', { opacity: 0, x: -40, clearProps: 'all' });
+                gsap.set('.product-specs-right', { opacity: 0, x: 40, clearProps: 'all' });
+                gsap.set('.spec-row', { clearProps: 'all' });
+                gsap.set('.noble-brew-bg', { opacity: 0.7, clearProps: 'opacity' });
+            }
         }
         if (window.GoldenCan3D) window.GoldenCan3D.reset();
         updateBottles(0);
