@@ -1074,7 +1074,6 @@ body {
 /* Adjacent bottle fade effect */
 .owl-carousel .owl-item {
     opacity: 0.35;
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity;
 }
 
@@ -1083,7 +1082,6 @@ body {
 }
 
 .owl-item-card {
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     transform: scale(0.86);
     transform-origin: center bottom;
     will-change: transform;

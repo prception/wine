@@ -533,7 +533,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initOwlCarousel() {
         if (typeof $.fn.owlCarousel === 'undefined' || !owlEl) return;
-        $(owlEl).owlCarousel({
+        
+        const $owl = $(owlEl);
+        
+        // Initial setup for GSAP values
+        $owl.on('initialized.owl.carousel', function(e) {
+            gsap.set('.owl-item:not(.center) .owl-item-card', { scale: 0.86, opacity: 0.35 });
+            gsap.set('.owl-item.center .owl-item-card', { scale: 1.06, opacity: 1 });
+        });
+
+        $owl.owlCarousel({
             loop: true,
             margin: 40,
             nav: false,
@@ -541,14 +550,67 @@ document.addEventListener('DOMContentLoaded', function() {
             autoplay: true,
             autoplayTimeout: 2500,
             autoplayHoverPause: true,
-            autoplaySpeed: 900,
-            smartSpeed: 900,
-            dragEndSpeed: 700,
+            autoplaySpeed: 1200,
+            smartSpeed: 1200,
+            dragEndSpeed: 1000,
             center: true,
             responsive: {
                 0: { items: 1, stagePadding: 60, margin: 20 },
                 768: { items: 3, stagePadding: 0, margin: 30 }
             }
+        });
+
+        // GSAP seamless smooth transition effect
+        $owl.on('translate.owl.carousel', function(e) {
+            // Smoothly scale/fade out all items during the transition
+            gsap.to('.owl-item .owl-item-card', {
+                scale: 0.86,
+                opacity: 0.35,
+                duration: 0.6,
+                ease: 'power2.inOut'
+            });
+            gsap.to('.owl-item .owl-item-img img', {
+                rotation: -3,
+                scale: 0.92,
+                duration: 0.6,
+                ease: 'power2.inOut'
+            });
+        });
+
+        $owl.on('translated.owl.carousel', function(e) {
+            // Get the newly active center item
+            const $centerCard = $owl.find('.owl-item.center .owl-item-card');
+            const $centerImg = $centerCard.find('.owl-item-img img');
+            
+            // Pop the center item beautifully
+            gsap.to($centerCard, {
+                scale: 1.06,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'back.out(1.2)'
+            });
+            
+            // Animate center image back to normal
+            gsap.to($centerImg, {
+                rotation: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: 'back.out(1.2)'
+            });
+            
+            // Ensure non-center items settle
+            gsap.to('.owl-item:not(.center) .owl-item-card', {
+                scale: 0.86,
+                opacity: 0.35,
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+            gsap.to('.owl-item:not(.center) .owl-item-img img', {
+                rotation: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
         });
     }
     
