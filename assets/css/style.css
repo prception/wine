@@ -1337,12 +1337,20 @@ body {
         margin: 1rem auto;
     }
 
-    .product-specs-right,
-    .green-specs-right {
+    .product-specs-right{
         left: 69% !important;
         right: auto !important;
         top: auto !important;
         bottom: 18% !important;
+        transform: translateX(-50%) !important;
+        width: 95% !important;
+        justify-content: center;
+    }
+    .green-specs-right {
+        left: 50% !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: 2% !important;
         transform: translateX(-50%) !important;
         width: 95% !important;
         justify-content: center;
