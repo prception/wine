@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wine Hero Section</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -66,45 +69,192 @@
         <div class="product-info-left">
             <span class="product-tag">Unlimited Release</span>
             <h2 class="product-name">NOBLE<br>BREW</h2>
-            <p class="product-desc">Brewed by our original process with Hops, Rice and Best Barley. A super premium beer crafted since 1876.</p>
+            <p class="product-desc">Crafted by our original process with organic botanicals, tea leaves, and pure sparkling water. A super premium refreshment crafted since 1876.</p>
+            <div class="product-divider"></div>
         </div>
         <div class="product-specs-right">
             <div class="spec-row">
-                <div class="spec-left">
-                    <span class="spec-label">Hops</span>
-                    <span class="spec-value">Select</span>
-                </div>
-                <span class="spec-desc">Noble variety hops for a balanced aroma and smooth finish</span>
+                <span class="spec-label">Flora</span>
+                <span class="spec-value">Select</span>
+                <span class="spec-desc">Hand-selected botanicals for balanced flavor</span>
             </div>
             <div class="spec-row">
-                <div class="spec-left">
-                    <span class="spec-label">Malt</span>
-                    <span class="spec-value">Finest</span>
-                </div>
-                <span class="spec-desc">Premium barley malt sourced from the finest crops</span>
+                <span class="spec-label">Tea</span>
+                <span class="spec-value">Finest</span>
+                <span class="spec-desc">Premium green tea from the finest crops</span>
             </div>
             <div class="spec-row">
-                <div class="spec-left">
-                    <span class="spec-label">Rice</span>
-                    <span class="spec-value">Premium</span>
-                </div>
-                <span class="spec-desc">Brewer's rice for a crisp, clean taste and drinkability</span>
+                <span class="spec-label">Agave</span>
+                <span class="spec-value">Premium</span>
+                <span class="spec-desc">Pure organic agave for a crisp, clean taste</span>
             </div>
             <div class="spec-row">
-                <div class="spec-left">
-                    <span class="spec-label">Since</span>
-                    <span class="spec-value">1876</span>
+                <span class="spec-label">Since</span>
+                <span class="spec-value">1876</span>
+                <span class="spec-desc">Original cold brewing process</span>
+            </div>
+        </div>
+        <!-- Green Label Content (Phase 2 - same section) -->
+        <div class="green-brew-bg">GREEN LABEL</div>
+        <div class="green-info-left lagunitas-style-left">
+            <span class="product-tag handwriting-tag">Unlimited release</span>
+            <h2 class="product-name headline-distressed">GREEN<br>MATCHA</h2>
+            <p class="product-desc">Our Green Matcha blend was our first seasonal way back in 1995. The recipe was formulated with premium matcha and botanicals working together to balance it all out on your palate so you can enjoy more than one without wearing yourself out. Big on the aroma with a crisp, refreshing finish that'll leave you wantin' another sip. Made with 43 different botanical extracts, this resilient sparkling tea will float your boat, whatever planet you're on.</p>
+            <a href="#" class="buy-btn">BUY NOW</a>
+        </div>
+        <div class="green-specs-right lagunitas-style-right">
+            <div class="spec-row green-spec-row lagunitas-spec-row">
+                <div class="spec-header">
+                    <span class="spec-label">CAFF</span>
+                    <span class="spec-sub">Natural Caffeine</span>
                 </div>
-                <span class="spec-desc">Crafted by our original beechwood aging process</span>
+                <div class="spec-content">
+                    <span class="spec-value">6mg</span>
+                    <p class="spec-desc">Sourced from organic green tea leaves for a smooth energy lift without the crash. <strong>READ MORE</strong></p>
+                </div>
+            </div>
+            <div class="spec-row green-spec-row lagunitas-spec-row">
+                <div class="spec-header">
+                    <span class="spec-label">SUGAR</span>
+                    <span class="spec-sub">Added Sugars</span>
+                </div>
+                <div class="spec-content">
+                    <span class="spec-value">0g</span>
+                    <p class="spec-desc">Naturally sweetened with a touch of organic monk fruit and real botanical extracts. <strong>READ MORE</strong></p>
+                </div>
+            </div>
+            <div class="spec-row green-spec-row lagunitas-spec-row no-border">
+                <div class="spec-header">
+                    <span class="spec-label">CAL</span>
+                    <span class="spec-sub">Calories per Serving</span>
+                </div>
+                <div class="spec-content">
+                    <span class="spec-value">15</span>
+                    <p class="spec-desc">A guilt-free refreshment perfect for any time of the day or night. <strong>READ MORE</strong></p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+        <div class="carousel-nav">
+            <span class="nav-tab active">FEATURED</span>
+            <span class="nav-sep">&#8226;</span>
+            <span class="nav-tab">PLAYLISTS</span>
+        </div>
+        <div class="carousel-watermark">CRAFT SODA &ndash; BOTANICAL BREWS</div>
+        <div class="owl-carousel" id="owlCarousel">
+            <div class="item">
+                <div class="owl-item-card">
+                    <span class="owl-badge">BEST SELLER</span>
+                    <div class="owl-item-img"><img src="assets/images/bottle/bottlegreen.png" alt="Citrus Spice"></div>
+                    <div class="owl-item-content">
+                        <h3 class="owl-item-title">CITRUS &amp; SPICE</h3>
+                        <p class="owl-item-sub">Sparkling citrus blend finished with a warm spiced aroma.</p>
+                        <a href="#" class="owl-item-btn">Visit site <span class="owl-arrow">&#8594;</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="owl-item-card">
+                    <span class="owl-badge">NEW</span>
+                    <div class="owl-item-img"><img src="assets/images/bottle/bottleblue.png" alt="Mint Melon"></div>
+                    <div class="owl-item-content">
+                        <h3 class="owl-item-title">MINT &amp; MELON</h3>
+                        <p class="owl-item-sub">Refreshing watermelon with a smooth, cooling mint finish.</p>
+                        <a href="#" class="owl-item-btn">Visit site <span class="owl-arrow">&#8594;</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="owl-item-card">
+                    <span class="owl-badge">BEST SELLER</span>
+                    <div class="owl-item-img"><img src="assets/images/bottle/bottleorange.png" alt="Berry Reserve"></div>
+                    <div class="owl-item-content">
+                        <h3 class="owl-item-title">BERRY RESERVE</h3>
+                        <p class="owl-item-sub">Cold-pressed mixed berries with rich pomegranate notes.</p>
+                        <a href="#" class="owl-item-btn">Visit site <span class="owl-arrow">&#8594;</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="owl-item-card">
+                    <span class="owl-badge">NEW</span>
+                    <div class="owl-item-img"><img src="assets/images/bottle/bottlepink.png" alt="Golden Peach"></div>
+                    <div class="owl-item-content">
+                        <h3 class="owl-item-title">GOLDEN PEACH</h3>
+                        <p class="owl-item-sub">Honey-finished peach nectar with a warm, mellow aftertaste.</p>
+                        <a href="#" class="owl-item-btn">Visit site <span class="owl-arrow">&#8594;</span></a>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="owl-nav-btn" id="owlNextBtn"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-watermark">NOBLE BREW</div>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="assets/images/logo/logo.png" alt="WINE Logo" width="60" height="60">
+                <h2>NOBLE BREW</h2>
+                <p>Crafting super premium beverages since 1876. A unique blend of tradition and modern excellence, ensuring every drop is a masterpiece.</p>
+            </div>
+            
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#collection">Collection</a></li>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Recycle Responsibly</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Stay Updated</h4>
+                    <p>Subscribe for exclusive releases and private tasting invites.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">&#8594;</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 NOBLE BREW. ALL RIGHTS RESERVED.</p>
+            <div class="social-links">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">FACEBOOK</a>
+                <a href="#">TWITTER</a>
+            </div>
+        </div>
+    </footer>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r126/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="assets/js/bottle.js"></script>
     <script src="assets/js/main.js"></script>
 </body>

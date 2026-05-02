@@ -6,6 +6,8 @@
     let container;
     let animationId;
     let isVisible = false;
+    let bodyMeshRef = null;
+    const originalLabelUrl = 'assets/images/bottle/can-label.png';
 
     function finishSceneSetup() {
         // Add lights
@@ -17,10 +19,10 @@
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
             controls.autoRotate = true;
-            controls.autoRotateSpeed = 2.0;
+            controls.autoRotateSpeed = 3.0;
             controls.enablePan = false;
-            controls.minDistance = 4;
-            controls.maxDistance = 15;
+            controls.minDistance = 7;
+            controls.maxDistance = 10;
             controls.target.set(0, 0, 0);
         }
 
@@ -110,7 +112,7 @@
         ctx.fillStyle = '#D4AF37';
         ctx.font = 'italic 26px Georgia, "Times New Roman", serif';
         ctx.textAlign = 'center';
-        ctx.fillText('Beechwood Aging produces a taste and drinkability you will find in no other beer', W * 0.5, 90);
+        ctx.fillText('Cold Brew Aging produces a taste and drinkability you will find in no other beverage', W * 0.5, 90);
 
         // ---- TRADE MARK / REGISTERED small side bands ----
         ctx.save();
@@ -181,13 +183,13 @@
         ctx.save();
         ctx.translate(cx - dSize * 1.15 + 30, cy);
         ctx.rotate(-Math.PI / 2);
-        ctx.fillText('BEER', 0, 0);
+        ctx.fillText('BREW', 0, 0);
         ctx.restore();
 
         ctx.save();
         ctx.translate(cx + dSize * 1.15 - 30, cy);
         ctx.rotate(Math.PI / 2);
-        ctx.fillText('BREWERS', 0, 0);
+        ctx.fillText('MAKERS', 0, 0);
         ctx.restore();
 
         // Inner circle with crown
@@ -221,10 +223,10 @@
         ctx.font = 'bold 95px "Arial Black", Impact, sans-serif';
         ctx.fillText('MAGNUM', cx, H * 0.68);
 
-        // ---- SUPER PREMIUM BEER ----
+        // ---- SUPER PREMIUM BREW ----
         ctx.font = 'bold 32px Arial, sans-serif';
         ctx.letterSpacing = '8px';
-        ctx.fillText('SUPER PREMIUM BEER', cx, H * 0.72 + 20);
+        ctx.fillText('SUPER PREMIUM BREW', cx, H * 0.72 + 20);
 
         // ---- Script description ----
         ctx.fillStyle = '#0D0D1A';
@@ -325,6 +327,7 @@
         body.receiveShadow = true;
         body.rotation.y = Math.PI; // Face the label forward
         canGroup.add(body);
+        bodyMeshRef = body; // Store reference for label swapping
 
         // --- Tapered neck ---
         const neckHeight = 0.35;
@@ -475,16 +478,19 @@
         canGroup.rotation.x = 0.12;
         canGroup.rotation.z = 0.06;
 
+        // Slightly increase the size of the can
+        canGroup.scale.set(1.15, 1.15, 1.15);
+
         scene.add(canGroup);
     }
 
     function setupLighting() {
-        // Dark ambient for depth
-        const ambientLight = new THREE.AmbientLight(0x221a14, 0.5);
+        // Lighter ambient for overall brightness
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
         scene.add(ambientLight);
 
-        // Key light (warm white)
-        const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.5);
+        // Key light (warm white) - increased intensity
+        const keyLight = new THREE.DirectionalLight(0xfff5e6, 2.5);
         keyLight.position.set(4, 6, 8);
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.width = 2048;
@@ -492,35 +498,35 @@
         keyLight.shadow.bias = -0.0001;
         scene.add(keyLight);
 
-        // Fill light (cool blue-gray for metal contrast)
-        const fillLight = new THREE.DirectionalLight(0xb8c4d4, 0.6);
+        // Fill light (cool blue-gray for metal contrast) - increased
+        const fillLight = new THREE.DirectionalLight(0xb8c4d4, 1.2);
         fillLight.position.set(-6, 3, 5);
         scene.add(fillLight);
 
         // Rim light (orange warmth for label pop)
-        const rimLight = new THREE.SpotLight(0xff7700, 2.0);
+        const rimLight = new THREE.SpotLight(0xff7700, 2.5);
         rimLight.position.set(-4, 5, -6);
         rimLight.lookAt(0, 0, 0);
         rimLight.penumbra = 0.5;
         scene.add(rimLight);
 
         // Top highlight for aluminum sheen
-        const topLight = new THREE.PointLight(0xffffff, 0.8, 15);
+        const topLight = new THREE.PointLight(0xffffff, 1.2, 15);
         topLight.position.set(0, 6, 3);
         scene.add(topLight);
 
         // Bottom bounce (subtle warm ground reflection)
-        const bounceLight = new THREE.PointLight(0xff8833, 0.4, 12);
+        const bounceLight = new THREE.PointLight(0xff8833, 0.8, 12);
         bounceLight.position.set(0, -5, 4);
         scene.add(bounceLight);
 
         // Side accent for depth definition
-        const sideLight = new THREE.PointLight(0xffaa44, 0.5, 10);
+        const sideLight = new THREE.PointLight(0xffaa44, 0.8, 10);
         sideLight.position.set(5, -2, -3);
         scene.add(sideLight);
 
-        // Front subtle highlight
-        const frontLight = new THREE.PointLight(0xffffff, 0.3, 10);
+        // Front direct highlight - significantly increased to brighten the label
+        const frontLight = new THREE.PointLight(0xffffff, 1.5, 10);
         frontLight.position.set(0, 0, 6);
         scene.add(frontLight);
     }
@@ -577,6 +583,24 @@
                 canGroup.rotation.y = 0;
                 canGroup.position.y = 0;
             }
+            // Restore original label if swapped
+            if (bodyMeshRef && originalLabelUrl && renderer) {
+                var loader = new THREE.TextureLoader();
+                loader.load(originalLabelUrl, function(tex) {
+                    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                    bodyMeshRef.material.map = tex;
+                    bodyMeshRef.material.needsUpdate = true;
+                });
+            }
+        },
+        swapLabel: function(url) {
+            if (!bodyMeshRef || !renderer) return;
+            var loader = new THREE.TextureLoader();
+            loader.load(url, function(tex) {
+                tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                bodyMeshRef.material.map = tex;
+                bodyMeshRef.material.needsUpdate = true;
+            });
         }
     };
 

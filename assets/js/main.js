@@ -266,6 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // GSAP ScrollTrigger timeline reference
     let ingredientsST = null;
+    let labelSwapped = false;
     
     function initIngredientsScroll() {
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -277,56 +278,186 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTrigger: {
                 trigger: bottleCenterSection,
                 start: 'top top',
-                end: '+=140%',
+                end: '+=280%',
                 pin: true,
                 scrub: 0.8,
-                anticipatePin: 1
+                anticipatePin: 1,
+                onUpdate: function(self) {
+                    // Swap label at ~50% progress (transition point between phases)
+                    if (self.progress > 0.42 && !labelSwapped) {
+                        labelSwapped = true;
+                        if (window.GoldenCan3D) {
+                            window.GoldenCan3D.swapLabel('assets/images/bottle/green-label.png');
+                        }
+                    } else if (self.progress <= 0.42 && labelSwapped) {
+                        labelSwapped = false;
+                        if (window.GoldenCan3D) {
+                            window.GoldenCan3D.swapLabel('assets/images/bottle/can-label.png');
+                        }
+                    }
+                }
             }
         });
+        
+        // ===== PHASE 1: Noble Brew (0 → 0.3) =====
         
         // Fade out background text
         tl.to('.noble-brew-bg', {
             opacity: 0,
-            duration: 0.4,
+            duration: 0.15,
             ease: 'none'
         }, 0);
         
         // Move 3D can wrapper to the left
         tl.to('.bottle-center-3d-wrapper', {
-            x: '-22vw',
-            duration: 1,
+            x: '-28vw',
+            duration: 0.25,
             ease: 'none'
         }, 0);
         
-        // Background shifts to white
+        // Background shifts to image
         tl.to(bottleCenterSection, {
-            backgroundColor: '#ffffff',
-            duration: 1,
+            backgroundImage: 'url("assets/images/background/change-bg-2.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: 'transparent',
+            duration: 0.2,
             ease: 'none'
-        }, 0.15);
+        }, 0.05);
         
         // Product info slides in from left
         tl.fromTo('.product-info-left',
-            { opacity: 0, x: -50 },
-            { opacity: 1, x: 0, duration: 0.8, ease: 'none' },
-            0.25
+            { opacity: 0, x: -60 },
+            { opacity: 1, x: 0, duration: 0.2, ease: 'power2.out' },
+            0.1
         );
-        
+
+        // Divider line grows from left
+        tl.fromTo('.product-divider',
+            { scaleX: 0, opacity: 0 },
+            { scaleX: 1, opacity: 1, duration: 0.15, ease: 'power2.out' },
+            0.15
+        );
+
         // Spec card slides in from right
         tl.fromTo('.product-specs-right',
-            { opacity: 0, x: 50 },
-            { opacity: 1, x: 0, duration: 0.8, ease: 'none' },
-            0.35
+            { opacity: 0, x: 60 },
+            { opacity: 1, x: 0, duration: 0.2, ease: 'power2.out' },
+            0.1
         );
-        
-        // Staggered spec rows reveal
-        tl.from('.spec-row', {
-            y: 15,
+
+        // Staggered spec rows
+        tl.from('.product-specs-right .spec-row', {
+            y: 25,
             opacity: 0,
-            stagger: 0.06,
-            duration: 0.5,
+            stagger: 0.03,
+            duration: 0.15,
+            ease: 'power2.out'
+        }, 0.15);
+        
+        // ===== TRANSITION: Phase 1 → Phase 2 =====
+        
+        // Fade out Noble Brew content FAST before dark bg
+        tl.to('.product-info-left', {
+            opacity: 0,
+            x: -40,
+            duration: 0.06,
+            ease: 'power2.in'
+        }, 0.36);
+        
+        tl.to('.product-divider', {
+            opacity: 0,
+            scaleX: 0,
+            duration: 0.06,
+            ease: 'power2.in'
+        }, 0.36);
+        
+        tl.to('.product-specs-right', {
+            opacity: 0,
+            x: 40,
+            duration: 0.06,
+            ease: 'power2.in'
+        }, 0.36);
+        
+        // Also hide the individual spec rows (they have their own GSAP inline opacity)
+        tl.to('.product-specs-right .spec-row', {
+            opacity: 0,
+            x: 40,
+            duration: 0.06,
+            ease: 'power2.in'
+        }, 0.36);
+        
+        // Move can from left back to center
+        tl.to('.bottle-center-3d-wrapper', {
+            x: '0vw',
+            y: '0vh',
+            duration: 0.12,
+            ease: 'power2.inOut'
+        }, 0.44);
+        
+        // Background shifts back to dark (after Noble Brew is fully gone)
+        tl.to(bottleCenterSection, {
+            backgroundImage: 'none',
+            backgroundColor: '#0a0c09',
+            duration: 0.1,
             ease: 'none'
-        }, 0.5);
+        }, 0.48);
+        
+        // Show GREEN LABEL bg text (dark bg only - can centered, no side content)
+        tl.to('.green-brew-bg', {
+            opacity: 0.7,
+            duration: 0.08,
+            ease: 'none'
+        }, 0.55);
+        
+        // ===== PHASE 2: Green Label — can stays centered, content on white bg =====
+        
+        // Fade out green bg text
+        tl.to('.green-brew-bg', {
+            opacity: 0,
+            duration: 0.1,
+            ease: 'none'
+        }, 0.65);
+        
+        // Background shifts to image
+        tl.to(bottleCenterSection, {
+            backgroundImage: 'url("assets/images/background/chnge-bg.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: 'transparent',
+            duration: 0.1,
+            ease: 'ease'
+        }, 0.68);
+        
+        // Green info slides in from the LEFT side (only on white bg)
+        tl.fromTo('.green-info-left',
+            { opacity: 0, x: 60 },
+            { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' },
+            0.76
+        );
+
+        // Buy button slides up
+        tl.fromTo('.buy-btn',
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' },
+            0.82
+        );
+
+        // Green specs slide in from the RIGHT side (only on white bg)
+        tl.fromTo('.green-specs-right',
+            { opacity: 0, x: -60 },
+            { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' },
+            0.76
+        );
+
+        // Staggered green spec rows
+        tl.from('.green-spec-row', {
+            y: 25,
+            opacity: 0,
+            stagger: 0.04,
+            duration: 0.2,
+            ease: 'power2.out'
+        }, 0.82);
         
         ingredientsST = tl.scrollTrigger;
     }
@@ -365,6 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bottleGoldBottom.classList.remove('scroll-to-section');
         // Reset 3D can animation state for re-entry
         bottleAnimated = false;
+        labelSwapped = false;
         if (can3dContainer) {
             can3dContainer.style.opacity = '';
             can3dContainer.style.transform = '';
@@ -377,14 +509,156 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bottleCenterSection) {
             bottleCenterSection.style.backgroundColor = '';
             if (typeof gsap !== 'undefined') {
-                gsap.set('.bottle-center-3d-wrapper', { x: 0, clearProps: 'transform' });
+                gsap.set('.bottle-center-3d-wrapper', { x: 0, y: 0, clearProps: 'transform' });
                 gsap.set('.product-info-left', { opacity: 0, x: -40, clearProps: 'all' });
+                gsap.set('.product-divider', { clearProps: 'all' });
                 gsap.set('.product-specs-right', { opacity: 0, x: 40, clearProps: 'all' });
-                gsap.set('.spec-row', { clearProps: 'all' });
+                gsap.set('.product-specs-right .spec-row', { clearProps: 'all' });
                 gsap.set('.noble-brew-bg', { opacity: 0.7, clearProps: 'opacity' });
+                // Reset green content
+                gsap.set('.green-brew-bg', { opacity: 0, clearProps: 'all' });
+                gsap.set('.green-info-left', { opacity: 0, x: -40, clearProps: 'all' });
+                gsap.set('.green-divider', { clearProps: 'all' });
+                gsap.set('.green-specs-right', { opacity: 0, x: 40, clearProps: 'all' });
+                gsap.set('.green-spec-row', { clearProps: 'all' });
             }
         }
         if (window.GoldenCan3D) window.GoldenCan3D.reset();
         updateBottles(0);
     }
+    
+    // Owl Carousel init
+    const owlEl = document.getElementById('owlCarousel');
+    const owlNextBtn = document.getElementById('owlNextBtn');
+
+    function initOwlCarousel() {
+        if (typeof $.fn.owlCarousel === 'undefined' || !owlEl) return;
+        $(owlEl).owlCarousel({
+            loop: true,
+            margin: 40,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 2500,
+            autoplayHoverPause: true,
+            autoplaySpeed: 900,
+            smartSpeed: 900,
+            dragEndSpeed: 700,
+            center: true,
+            responsive: {
+                0: { items: 1, stagePadding: 60, margin: 20 },
+                768: { items: 3, stagePadding: 0, margin: 30 }
+            }
+        });
+    }
+    
+    if (owlEl) {
+        initOwlCarousel();
+    }
+    
+    if (owlNextBtn) {
+        owlNextBtn.addEventListener('click', () => {
+            if (owlEl && typeof $.fn.owlCarousel !== 'undefined') {
+                $(owlEl).trigger('next.owl.carousel');
+            }
+        });
+    }
+
+    // GSAP ScrollTrigger animation for carousel section items
+    function initCarouselScrollAnimations() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const carouselSection = document.querySelector('.carousel-section');
+        if (!carouselSection) return;
+
+        // Animate carousel watermark first
+        gsap.from('.carousel-watermark', {
+            scrollTrigger: {
+                trigger: carouselSection,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            ease: 'power2.out'
+        });
+
+        // Animate carousel nav tabs
+        gsap.from('.carousel-nav .nav-tab', {
+            scrollTrigger: {
+                trigger: carouselSection,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: -20,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: 'power2.out'
+        });
+
+        // Animate each carousel item's bottle image
+        gsap.from('.owl-item-card .owl-item-img img', {
+            scrollTrigger: {
+                trigger: carouselSection,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 80,
+            scale: 0.85,
+            stagger: 0.15,
+            duration: 1.2,
+            ease: 'power3.out'
+        });
+
+        // Animate each carousel item's content (title, subtitle, button)
+        gsap.from('.owl-item-card .owl-item-content', {
+            scrollTrigger: {
+                trigger: carouselSection,
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 50,
+            stagger: 0.15,
+            duration: 1,
+            ease: 'power2.out',
+            delay: 0.2
+        });
+
+        // Animate badges with a pop effect
+        gsap.from('.owl-item-card .owl-badge', {
+            scrollTrigger: {
+                trigger: carouselSection,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0,
+            stagger: 0.1,
+            duration: 0.6,
+            ease: 'back.out(1.7)',
+            delay: 0.4
+        });
+
+        // Animate the nav button
+        gsap.from('.owl-nav-btn', {
+            scrollTrigger: {
+                trigger: carouselSection,
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.8,
+            ease: 'back.out(1.7)'
+        });
+    }
+
+    initCarouselScrollAnimations();
 });
+
