@@ -1317,4 +1317,88 @@ body {
         flex-direction: column;
         text-align: center;
     }
+
+    /* Mobile Text Layout for 3D Bottle Section */
+    .product-info-left,
+    .green-info-left {
+        left: 50% !important;
+        right: auto !important;
+        top: 8% !important;
+        transform: translateX(-50%) !important;
+        width: 90% !important;
+        text-align: center;
+    }
+    
+    .lagunitas-style-left {
+        max-width: 100% !important;
+    }
+    
+    .product-divider {
+        margin: 1rem auto;
+    }
+
+    .product-specs-right,
+    .green-specs-right {
+        left: 69% !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: 18% !important;
+        transform: translateX(-50%) !important;
+        width: 95% !important;
+        justify-content: center;
+    }
+
+    .product-specs-right {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .product-specs-right .spec-row {
+        flex: 1 1 40%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .lagunitas-style-right .spec-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+
+    .lagunitas-style-right .spec-header {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        align-items: center;
+    }
+    
+    .product-name, 
+    .lagunitas-style-left .headline-distressed {
+        font-size: 2.8rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .bottle-center-3d-wrapper {
+        transform: scale(0.65);
+    }
+
+    .noble-brew-bg,
+    .green-brew-bg {
+        font-size: 22vw;
+        opacity: 0.2;
+    }
+    .product-desc,
+    .buy-btn,
+    .green-spec-row:nth-child(2),
+    .green-spec-row:nth-child(3){
+        display: none !important;
+    }
+    .lagunitas-style-right{
+        padding: .5rem;
+    }
+    .navbar-btn{
+        display: none;
+    }
 }
